@@ -90,9 +90,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ContestantsSample.cs" />
     <Compile Include="Models\Contestant.cs" />
     <Compile Include="Models\RankingEntry.cs" />
-    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Route.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
