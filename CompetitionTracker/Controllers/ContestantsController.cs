@@ -4,39 +4,68 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CompetitionTracker.Exceptions;
+using CompetitionTracker.Helpers;
 using CompetitionTracker.Models;
 
 namespace CompetitionTracker.Controllers
 {
     public class ContestantsController : ApiController
     {
-        Contestant[] contestants =
+        [HttpPost]
+        public IHttpActionResult AddContestant([FromBody] string firstName, string lastName)
         {
-            new Contestant { ContestantId = 1, FirstName = "Adam", LastName = "Nowak"},
-            new Contestant { ContestantId = 2, FirstName = "Jan", LastName = "Kowalski"},
-            new Contestant { ContestantId = 3, FirstName = "Anna", LastName = "Małecka"}
-        };
-        [HttpGet, ActionName("GetAllContestant")]
-        public HttpResponseMessage GetAllContestants()
-        {
-            Result result;
-            try
-            {
-                var contestantsList = contestants.ToList();
-                if(contestantsList.Lenght) 
-            }
-
+            ContestantsSample.AddContestant(firstName, lastName);
+            return Ok();
         }
 
-        public IHttpActionResult GetContestant(int id)
+        [HttpGet]
+        public IHttpActionResult GetAllContestants()
         {
-            Contestant contestant = contestants.FirstOrDefault(c => c.ContestantId == id);
-            if (contestant == null)
+            return Ok(ContestantsSample.GetAllContestants());
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetContestant(long id)
+        {
+            try
+            {
+                Contestant contestant = ContestantsSample.GetContestant(id);
+                return Ok(contestant);
+            }
+            catch (UserNotFoundException e)
+            {
+                //TODO: logowanie wyjątków! 
+                return NotFound();
+            }
+        }
+
+        [HttpPut]
+        public IHttpActionResult UpdateContestantInfo(long id, string firstName, string lastName)
+        {
+            try
+            {
+                Contestant contestant = ContestantsSample.UpdateContestantInfo(id, firstName, lastName);
+                return Ok(contestant);
+            }
+            catch (UserNotFoundException e)
             {
                 return NotFound();
             }
-            return Ok(contestant);
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteContestant(int id)
+        {
+            try
+            {
+                ContestantsSample.DeleteContestant(id);
+                return Ok();
+            }
+            catch (UserNotFoundException e)
+            {
+                return NotFound();
+            }
         }
     }
-}
 }
