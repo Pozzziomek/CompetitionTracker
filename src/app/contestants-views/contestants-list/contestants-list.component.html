@@ -1,0 +1,18 @@
+<!-- <div>
+  <button>Dodaj zawodnika</button>
+</div> -->
+
+<div class="container">
+    <table class="table">
+        <tr>
+          <th>Lp.</th>
+          <th>Nazwisko</th>
+          <th>Imię</th>
+        </tr>
+        <tr *ngFor="let contestant of contestants; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{contestant.lastName}}</td>
+          <td>{{contestant.firstName}}</td>
+        </tr>
+      </table>
+</div>
