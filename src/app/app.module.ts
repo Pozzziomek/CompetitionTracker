@@ -5,11 +5,15 @@ import { ContestantsListComponent } from './contestants-views/contestants-list/c
 
 import { HttpModule } from '@angular/http';
 import { RouterModule} from '@angular/router';
+import { ContestantComponent } from './contestants-views/contestant/contestant.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContestantsListComponent
+    ContestantsListComponent,
+    ContestantComponent
   ],
   imports: [
     BrowserModule,
@@ -18,8 +22,14 @@ import { RouterModule} from '@angular/router';
       {
          path: 'contestants',
          component: ContestantsListComponent
-      }
-   ])
+      },
+      {
+        path: 'contestant',
+        component: ContestantComponent
+     },
+   ]),
+   FormsModule,
+   ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
