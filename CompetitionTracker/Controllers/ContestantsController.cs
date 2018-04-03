@@ -14,64 +14,72 @@ namespace CompetitionTracker.Controllers
     {
 
         [HttpOptions]
-        public IHttpActionResult Post(object json)
+        public HttpResponseMessage Post(object json)
         {
-            return Ok();
+           return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public IHttpActionResult AddContestant([FromBody] Contestant contestant)
+        public HttpResponseMessage AddContestant([FromBody] Contestant contestant)
         {
-            ContestantsSample.AddContestant(contestant.FirstName, contestant.LastName);
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                ContestantsSample.AddContestant(contestant.FirstName, contestant.LastName);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
 
         [HttpGet]
-        public IHttpActionResult GetAllContestants()
+        public HttpResponseMessage GetAllContestants()
         {
-            return Ok(ContestantsSample.GetAllContestants());
+            return Request.CreateResponse(HttpStatusCode.OK, ContestantsSample.GetAllContestants());
         }
 
         [HttpGet]
-        public IHttpActionResult GetContestant(long id)
+        public HttpResponseMessage GetContestant(long id)
         {
             try
             {
                 Contestant contestant = ContestantsSample.GetContestant(id);
-                return Ok(contestant);
+                return Request.CreateResponse(HttpStatusCode.OK, contestant);
             }
             catch (UserNotFoundException e)
             {
                 //TODO: logowanie wyjątków! 
-                return NotFound();
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateContestantInfo(long id, [FromBody] Contestant contestant)
+        public HttpResponseMessage UpdateContestantInfo(long id, [FromBody] Contestant contestant)
         {
-            try
+            if (ModelState.IsValid)
             {
-                Contestant updatedContestant = ContestantsSample.UpdateContestantInfo(id, contestant.FirstName, contestant.LastName);
-                return Ok(updatedContestant);
+                try
+                {
+                    Contestant updatedContestant = ContestantsSample.UpdateContestantInfo(id, contestant.FirstName, contestant.LastName);
+                    return Request.CreateResponse(HttpStatusCode.OK, updatedContestant);
+                }
+                catch (UserNotFoundException e)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
             }
-            catch (UserNotFoundException e)
-            {
-                return NotFound();
-            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteContestant(int id)
+        public HttpResponseMessage DeleteContestant(int id)
         {
             try
             {
                 ContestantsSample.DeleteContestant(id);
-                return Ok();
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (UserNotFoundException e)
             {
-                return NotFound();
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
         }
     }
