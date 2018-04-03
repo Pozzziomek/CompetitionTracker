@@ -54,7 +54,7 @@ namespace CompetitionTracker.Helpers
             Route route = Routes.FirstOrDefault(r => r.RouteId == id);
             if (route == null)
             {
-                throw new UserNotFoundException($"Route with id {id} not found!");
+                throw new RouteNotFoundException($"Route with id {id} not found!");
             }
             return route;
         }
