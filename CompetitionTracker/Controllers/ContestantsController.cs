@@ -12,10 +12,17 @@ namespace CompetitionTracker.Controllers
 {
     public class ContestantsController : ApiController
     {
-        [HttpPost]
-        public IHttpActionResult AddContestant([FromBody] string firstName, string lastName)
+
+        [HttpOptions]
+        public IHttpActionResult Post(object json)
         {
-            ContestantsSample.AddContestant(firstName, lastName);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddContestant([FromBody] Contestant contestant)
+        {
+            ContestantsSample.AddContestant(contestant.FirstName, contestant.LastName);
             return Ok();
         }
 
@@ -41,12 +48,12 @@ namespace CompetitionTracker.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateContestantInfo(long id, string firstName, string lastName)
+        public IHttpActionResult UpdateContestantInfo(long id, [FromBody] Contestant contestant)
         {
             try
             {
-                Contestant contestant = ContestantsSample.UpdateContestantInfo(id, firstName, lastName);
-                return Ok(contestant);
+                Contestant updatedContestant = ContestantsSample.UpdateContestantInfo(id, contestant.FirstName, contestant.LastName);
+                return Ok(updatedContestant);
             }
             catch (UserNotFoundException e)
             {
