@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Ranking zawodów wspinaczkowych</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a routerLink="contestants" class="nav-link" href="#">Zawodnicy </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Trasy </a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="text" placeholder="Znajdź zawodnika" aria-label="Szukaj">
+      </form>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
