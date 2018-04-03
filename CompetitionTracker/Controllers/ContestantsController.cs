@@ -4,39 +4,83 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CompetitionTracker.Exceptions;
+using CompetitionTracker.Helpers;
 using CompetitionTracker.Models;
 
 namespace CompetitionTracker.Controllers
 {
     public class ContestantsController : ApiController
     {
-        Contestant[] contestants =
+
+        [HttpOptions]
+        public HttpResponseMessage Post(object json)
         {
-            new Contestant { ContestantId = 1, FirstName = "Adam", LastName = "Nowak"},
-            new Contestant { ContestantId = 2, FirstName = "Jan", LastName = "Kowalski"},
-            new Contestant { ContestantId = 3, FirstName = "Anna", LastName = "Małecka"}
-        };
-        [HttpGet, ActionName("GetAllContestant")]
+           return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage AddContestant([FromBody] Contestant contestant)
+        {
+            if (ModelState.IsValid)
+            {
+                ContestantsSample.AddContestant(contestant.FirstName, contestant.LastName);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        }
+
+        [HttpGet]
         public HttpResponseMessage GetAllContestants()
         {
-            Result result;
+            return Request.CreateResponse(HttpStatusCode.OK, ContestantsSample.GetAllContestants());
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetContestant(long id)
+        {
             try
             {
-                var contestantsList = contestants.ToList();
-                if(contestantsList.Lenght) 
+                Contestant contestant = ContestantsSample.GetContestant(id);
+                return Request.CreateResponse(HttpStatusCode.OK, contestant);
             }
-
+            catch (UserNotFoundException e)
+            {
+                //TODO: logowanie wyjątków! 
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
         }
 
-        public IHttpActionResult GetContestant(int id)
+        [HttpPut]
+        public HttpResponseMessage UpdateContestantInfo(long id, [FromBody] Contestant contestant)
         {
-            Contestant contestant = contestants.FirstOrDefault(c => c.ContestantId == id);
-            if (contestant == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                try
+                {
+                    Contestant updatedContestant = ContestantsSample.UpdateContestantInfo(id, contestant.FirstName, contestant.LastName);
+                    return Request.CreateResponse(HttpStatusCode.OK, updatedContestant);
+                }
+                catch (UserNotFoundException e)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
             }
-            return Ok(contestant);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteContestant(int id)
+        {
+            try
+            {
+                ContestantsSample.DeleteContestant(id);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch (UserNotFoundException e)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
         }
     }
-}
 }
