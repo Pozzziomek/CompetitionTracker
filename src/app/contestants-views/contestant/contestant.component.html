@@ -1,0 +1,36 @@
+<div class="container">
+  <h3>Dodaj nowego uczestnika</h3>  
+  <form [formGroup]="formData" (ngSubmit) = "onClickSubmit(formData.value)">
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Imię</label>
+    <div class="col-10">
+        <input class="form-control col-sm-6" type="text" formControlName="firstName" required>
+        <div class="alert alert-danger col-sm-6" *ngIf="formData.controls['firstName'].invalid && (formData.controls['firstName'].dirty || formData.controls['firstName'].touched)">
+          <div *ngIf="formData.controls['firstName'].errors.required">
+            Imię jest wymagane.
+          </div>
+          <div *ngIf="formData.controls['firstName'].errors.dataLengthValidation">
+            Imię musi mieć od 3 do 40 znaków.
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Nazwisko</label>
+    <div class="col-10">
+      <input class="form-control col-sm-6" type="text"  formControlName="lastName" required>
+      <div class="alert alert-danger col-sm-6" *ngIf="formData.controls['lastName'].invalid && (formData.controls['lastName'].dirty || formData.controls['lastName'].touched)">
+          <div *ngIf="formData.controls['lastName'].errors.required">
+            Nazwisko jest wymagane.
+          </div>
+          <div *ngIf="formData.controls['lastName'].errors.dataLengthValidation">
+            Nazwisko musi mieć od 3 do 40 znaków.
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="offset-sm-3 col-sm-10">
+    <button type="submit" [disabled] = "!formData.valid" class="btn btn-primary">Zapisz</button>
+  </div>
+  </form>
+</div>
