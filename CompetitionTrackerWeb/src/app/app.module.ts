@@ -8,12 +8,16 @@ import { RouterModule} from '@angular/router';
 import { ContestantComponent } from './contestants-views/contestant/contestant.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RoutesListComponent } from './routes-views/routes-list/routes-list.component';
+import { RouteComponent } from './routes-views/route/route.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContestantsListComponent,
-    ContestantComponent
+    ContestantComponent,
+    RoutesListComponent,
+    RouteComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +31,14 @@ import { ReactiveFormsModule } from '@angular/forms';
         path: 'contestant',
         component: ContestantComponent
      },
+     {
+      path: 'routes',
+      component: RoutesListComponent
+    },
+    {
+      path: 'route',
+      component: RouteComponent
+   },
    ]),
    FormsModule,
    ReactiveFormsModule

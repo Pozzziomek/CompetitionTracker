@@ -1,0 +1,36 @@
+<div class="container">
+  <h3>Dodaj nową trasę</h3>  
+  <form [formGroup]="formData" (ngSubmit) = "onClickSubmit(formData.value)">
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Nazwa trasy</label>
+    <div class="col-10">
+        <input class="form-control col-sm-6" type="text" formControlName="routeName" required>
+        <div class="alert alert-danger col-sm-6" *ngIf="formData.controls['routeName'].invalid && (formData.controls['routeName'].dirty || formData.controls['routeName'].touched)">
+          <div *ngIf="formData.controls['routeName'].errors.required">
+            Nazwa trasy jest wymagana.
+          </div>
+          <div *ngIf="formData.controls['routeName'].errors.maxLength">
+            Nazwa trasy nie może być dłuższa niż 100 znaków.
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Punktacja</label>
+    <div class="col-10">
+      <input class="form-control col-sm-6" type="number"  formControlName="points" required>
+      <div class="alert alert-danger col-sm-6" *ngIf="formData.controls['points'].invalid && (formData.controls['points'].dirty || formData.controls['points'].touched)">
+          <div *ngIf="formData.controls['points'].errors.required">
+            Liczba punktów dla danej trasy jest wymagana.
+          </div>
+          <div *ngIf="formData.controls['points'].errors.min || formData.controls['points'].errors.max">
+            Liczba punktów powinna obejmować zakres 10-1000.
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="offset-sm-3 col-sm-10">
+    <button type="submit" [disabled] = "!formData.valid" class="btn btn-primary">Zapisz</button>
+  </div>
+  </form>
+</div>
