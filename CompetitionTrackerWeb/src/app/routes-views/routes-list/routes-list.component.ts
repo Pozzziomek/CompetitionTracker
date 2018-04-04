@@ -24,7 +24,6 @@ export class RoutesListComponent implements OnInit {
   displayData(data) {
     data.forEach(element => {
       let o = new Route();
-      o.routeId = element.RouteId;
       o.routeName = element.RouteName;
       o.points = element.Points;
       this.routes.push(o);
