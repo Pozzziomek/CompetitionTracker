@@ -87,13 +87,16 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ContestantsController.cs" />
+    <Compile Include="Controllers\RankingEntriesController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
+    <Compile Include="Exceptions\RankingEntryNotFoundException.cs" />
     <Compile Include="Exceptions\RouteNotFoundException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ContestantsSample.cs" />
+    <Compile Include="Helpers\RankingEntriesSample.cs" />
     <Compile Include="Helpers\RoutesSample.cs" />
     <Compile Include="Models\Contestant.cs" />
     <Compile Include="Models\RankingEntry.cs" />
