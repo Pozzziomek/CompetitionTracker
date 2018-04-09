@@ -19,10 +19,12 @@ namespace CompetitionTracker.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddRankingEntry([FromBody] Contestant contestant, [FromBody] Route route)
+        public HttpResponseMessage AddRankingEntry([FromBody]long contestantId, [FromBody]long routeId)
         {
             if (ModelState.IsValid)
             {
+                Contestant contestant = ContestantsSample.GetContestant(contestantId);
+                Route route = RoutesSample.GetRoute(routeId);
                 RankingEntriesSample.AddRankingEntry(contestant, route);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
@@ -32,7 +34,11 @@ namespace CompetitionTracker.Controllers
         [HttpGet]
         public HttpResponseMessage GetAllRankingEntries()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, RankingEntriesSample.GetRankingEntries());
+            List<RankingEntry> sortedRankingEntries = RankingEntriesSample.GetRankingEntries()
+                .OrderByDescending(x => x.PointsSum)
+                .ThenBy(y => y.Contestant.LastName)
+                .ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, sortedRankingEntries);
         }
 
         [HttpDelete]
