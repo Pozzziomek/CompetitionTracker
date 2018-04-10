@@ -24,6 +24,7 @@ export class ContestantsListComponent implements OnInit {
   displayData(data) {
     data.forEach(element => {
       let o = new Contestant();
+      o.contestantId = element.ContestantId;
       o.firstName = element.FirstName;
       o.lastName = element.LastName;
       this.contestants.push(o);
