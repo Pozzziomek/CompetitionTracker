@@ -9,7 +9,7 @@ namespace CompetitionTracker.Helpers
 {
     public class RankingEntriesSample
     {
-        public static readonly List<RankingEntry> RankingEntries = new List<RankingEntry>()
+        private static readonly List<RankingEntry> RankingEntries = new List<RankingEntry>()
         {
             new RankingEntry(new Contestant("Marek", "Drozd"), new Route("Trasa A", 50)),
             new RankingEntry(new Contestant("Paulina", "Glik"), new Route("Trasa A", 50)),

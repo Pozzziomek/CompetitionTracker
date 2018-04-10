@@ -8,7 +8,7 @@ namespace CompetitionTracker.Models
 {
     public class Contestant
     {
-        private static long _nextId;
+        private static long _nextId = 0;
 
         public long ContestantId { get; }
 

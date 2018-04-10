@@ -9,7 +9,7 @@ namespace CompetitionTracker.Models
 {
     public class Route
     {
-        private static long _nextId;
+        private static long _nextId = 0;
 
         public long RouteId { get; }
 

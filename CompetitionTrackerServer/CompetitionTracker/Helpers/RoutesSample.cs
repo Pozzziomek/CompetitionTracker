@@ -9,7 +9,7 @@ namespace CompetitionTracker.Helpers
 {
     public static class RoutesSample
     {
-        public static readonly List<Route> Routes = new List<Route>()
+        private static readonly List<Route> Routes = new List<Route>()
         {
             new Route("Bardzo łatwa", 10),
             new Route("Łatwa", 30),
