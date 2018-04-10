@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RoutesListComponent } from './routes-views/routes-list/routes-list.component';
 import { RouteComponent } from './routes-views/route/route.component';
+import { RankingEntriesListComponent } from './ranking-views/ranking-entries-list/ranking-entries-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RouteComponent } from './routes-views/route/route.component';
     ContestantsListComponent,
     ContestantComponent,
     RoutesListComponent,
-    RouteComponent
+    RouteComponent,
+    RankingEntriesListComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,14 @@ import { RouteComponent } from './routes-views/route/route.component';
       path: 'route',
       component: RouteComponent
    },
+   {
+    path: 'ranking',
+    component: RankingEntriesListComponent
+ },
+//  {
+//   path: 'ranking-entry',
+//   component: RankingEntryComponent
+// },
    ]),
    FormsModule,
    ReactiveFormsModule
