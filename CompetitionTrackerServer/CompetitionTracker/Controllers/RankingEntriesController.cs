@@ -19,12 +19,12 @@ namespace CompetitionTracker.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddRankingEntry([FromBody]long contestantId, [FromBody]long routeId)
+        public HttpResponseMessage AddRankingEntry([FromBody] RankingEntryDetails rankingEntryDetails)
         {
             if (ModelState.IsValid)
             {
-                Contestant contestant = ContestantsSample.GetContestant(contestantId);
-                Route route = RoutesSample.GetRoute(routeId);
+                Contestant contestant = ContestantsSample.GetContestant(rankingEntryDetails.ContestantId);
+                Route route = RoutesSample.GetRoute(rankingEntryDetails.RouteId);
                 RankingEntriesSample.AddRankingEntry(contestant, route);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }

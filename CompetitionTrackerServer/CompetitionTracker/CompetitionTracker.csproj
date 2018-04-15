@@ -100,6 +100,7 @@
     <Compile Include="Helpers\RoutesSample.cs" />
     <Compile Include="Models\Contestant.cs" />
     <Compile Include="Models\RankingEntry.cs" />
+    <Compile Include="Models\RankingEntryDetails.cs" />
     <Compile Include="Models\Route.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
