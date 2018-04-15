@@ -7,17 +7,21 @@ using CompetitionTracker.Models;
 
 namespace CompetitionTracker.Helpers
 {
-    public class RankingEntriesSample
+    public static class RankingEntriesSample
     {
-        private static readonly List<RankingEntry> RankingEntries = new List<RankingEntry>()
+        private static readonly List<RankingEntry> RankingEntries = new List<RankingEntry>();
+
+        static RankingEntriesSample()
         {
-            new RankingEntry(new Contestant("Marek", "Drozd"), new Route("Trasa A", 50)),
-            new RankingEntry(new Contestant("Paulina", "Glik"), new Route("Trasa A", 50)),
-            new RankingEntry(new Contestant("Maria", "Janik"), new Route("Trasa C", 150)),
-            new RankingEntry(new Contestant("Marcin", "Kot"), new Route("Trasa D", 200)),
-            new RankingEntry(new Contestant("Piotr", "Wolski"), new Route("Trasa B", 90)),
-            new RankingEntry(new Contestant("Ewa", "Baran"), new Route("Trasa D", 200)),
-        };
+            List<Contestant> contestants = ContestantsSample.GetAllContestants();
+            List<Route> routes = RoutesSample.GetAllRoutes();
+            Random r = new Random();
+            foreach (Contestant contestant in contestants)
+            {
+                Route randomRoute = routes[r.Next(routes.Count)];
+                RankingEntries.Add(new RankingEntry(contestant, randomRoute));
+            }
+        }
 
         public static void AddRankingEntry(Contestant contestant, Route route)
         {
@@ -45,12 +49,12 @@ namespace CompetitionTracker.Helpers
             RankingEntries.Remove(rankingEntry);
         }
 
-        private static RankingEntry FindRankingEntry(long id, bool throwIfNotFound)
+        private static RankingEntry FindRankingEntry(long contestantId, bool throwIfNotFound)
         {
-            RankingEntry rankingEntry = RankingEntries.FirstOrDefault(r => r.RankingEntryId == id);
+            RankingEntry rankingEntry = RankingEntries.FirstOrDefault(r => r.Contestant.ContestantId == contestantId);
             if (rankingEntry == null && throwIfNotFound)
             {
-                throw new RankingEntryNotFoundException($"Contestant with id {id} in ranking not found!");
+                throw new RankingEntryNotFoundException($"Contestant with id {contestantId} in ranking not found!");
             }
             return rankingEntry;
         }
