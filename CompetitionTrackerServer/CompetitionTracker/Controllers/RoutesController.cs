@@ -32,7 +32,8 @@ namespace CompetitionTracker.Controllers
         [HttpGet]
         public HttpResponseMessage GetAllRoutes()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, RoutesSample.GetAllRoutes());
+            List<Route> sortedRoutes = RoutesSample.GetAllRoutes().OrderBy(r => r.RouteName).ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, sortedRoutes);
         }
 
         [HttpGet]

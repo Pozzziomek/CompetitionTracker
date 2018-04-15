@@ -33,7 +33,9 @@ namespace CompetitionTracker.Controllers
         [HttpGet]
         public HttpResponseMessage GetAllContestants()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, ContestantsSample.GetAllContestants());
+            List<Contestant> sortedContestants =
+                ContestantsSample.GetAllContestants().OrderBy(c => c.LastName).ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, sortedContestants);
         }
 
         [HttpGet]
