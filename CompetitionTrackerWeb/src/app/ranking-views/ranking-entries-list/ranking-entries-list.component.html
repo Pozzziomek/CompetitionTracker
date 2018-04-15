@@ -1,22 +1,24 @@
 <div class="container">
-  <div>
+  <div class="item-header">
     <button (click)="goToRankingEntryForm($event)" class="btn btn-primary go-to-form">Dodaj wpis</button>
+    <h3>Aktualny ranking</h3>
   </div>
-  <h3>Aktualny ranking</h3>
-    <table class="table">
-        <tr>
-          <th>Lp.</th>
-          <th>Uczestnik</th>
-          <th>Suma punktów</th>
-          <th>Przebyte trasy</th>
-        </tr>
-        <tr *ngFor="let rankingEntry of rankingEntries; let i = index">
-          <td>{{i+1}}</td>
-          <td>{{rankingEntry.contestantLastName}} {{rankingEntry.contestantFirstName}}</td>
-          <td>{{rankingEntry.contestantPointsSum}}</td>
-          <td *ngFor = "let route of rankingEntry.contestantRoutes">
-            <li>{{route}}</li>
-          </td>
-        </tr>
-      </table>
+  <table class="table">
+    <tr>
+      <th>Lp.</th>
+      <th>Uczestnik</th>
+      <th>Suma punktów</th>
+      <th>Przebyte trasy</th>
+    </tr>
+    <tr *ngFor="let rankingEntry of rankingEntries; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{rankingEntry.contestantLastName}} {{rankingEntry.contestantFirstName}}</td>
+      <td>{{rankingEntry.contestantPointsSum}}</td>
+      <td>
+        <p *ngFor="let route of rankingEntry.contestantRoutes">
+          {{route}}
+        </p>
+      </td>
+    </tr>
+  </table>
 </div>
