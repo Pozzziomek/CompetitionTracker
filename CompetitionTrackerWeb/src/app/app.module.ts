@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RoutesListComponent } from './routes-views/routes-list/routes-list.component';
 import { RouteComponent } from './routes-views/route/route.component';
 import { RankingEntriesListComponent } from './ranking-views/ranking-entries-list/ranking-entries-list.component';
+import { RankingEntryComponent } from './ranking-views/ranking-entry/ranking-entry.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RankingEntriesListComponent } from './ranking-views/ranking-entries-lis
     ContestantComponent,
     RoutesListComponent,
     RouteComponent,
-    RankingEntriesListComponent
+    RankingEntriesListComponent,
+    RankingEntryComponent
   ],
   imports: [
     BrowserModule,
@@ -32,23 +34,29 @@ import { RankingEntriesListComponent } from './ranking-views/ranking-entries-lis
       {
         path: 'contestant',
         component: ContestantComponent
-     },
-     {
-      path: 'routes',
-      component: RoutesListComponent
-    },
-    {
-      path: 'route',
-      component: RouteComponent
-   },
-   {
-    path: 'ranking',
-    component: RankingEntriesListComponent
- },
-//  {
-//   path: 'ranking-entry',
-//   component: RankingEntryComponent
-// },
+      },
+      {
+        path: 'routes',
+        component: RoutesListComponent
+      },
+      {
+        path: 'route',
+        component: RouteComponent
+      },
+      {
+        path: 'ranking',
+        component: RankingEntriesListComponent
+      },
+      {
+        path: 'ranking-entry',
+        component: RankingEntryComponent
+      },
+      // Added in the end, because Angular matches path from top to bottom 
+      {
+        path: '**',
+        redirectTo: '/ranking', 
+        pathMatch:'full'
+      }
    ]),
    FormsModule,
    ReactiveFormsModule
