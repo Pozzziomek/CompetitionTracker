@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { RankingEntry } from '../../model/ranking-entry';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalInfoComponent } from '../../modal-info/modal-info.component';
 
 @Component({
   selector: 'app-ranking-entries-list',
@@ -11,19 +13,25 @@ import { Router } from "@angular/router";
 })
 export class RankingEntriesListComponent implements OnInit {
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private http: Http, private router: Router, private modal: NgbModal) { }
 
   rankingEntries: Array<RankingEntry> = [];
 
   ngOnInit() {
-    this.http.get("http://localhost:57527/api/rankingentries")
-    .map((response) => response.json())
-    .subscribe((data) => this.displayData(data));
+    this.loadRankingEntries();
   }
 
-  displayData(data) {
+  loadRankingEntries() {
+    this.http.get("http://localhost:57527/api/rankingentries")
+    .map((response) => response.json())
+    .subscribe((data) => this.mapData(data));
+  }
+
+  mapData(data) {
+    this.rankingEntries = [];
     data.forEach(element => {
       let o = new RankingEntry();
+      o.rankingEntryId = element.RankingEntryId;
       o.contestantFirstName = element.Contestant.FirstName;
       o.contestantLastName = element.Contestant.LastName;
       o.contestantPointsSum = element.PointsSum;
@@ -34,5 +42,20 @@ export class RankingEntriesListComponent implements OnInit {
 
   goToRankingEntryForm(event) {
     this.router.navigate(['/ranking-entry']);
+  }
+
+  onClick(entryId: number) {
+    let options: any = {
+      size: "dialog-centered"
+    };
+
+    const modalRef = this.modal.open(ModalInfoComponent, options);
+    modalRef.componentInstance.rankingEntryId = entryId;
+    modalRef.result.then(
+      (result) => {
+        this.loadRankingEntries()
+      },
+      (reason) => console.log(`Dismissed with ${reason}`)
+    );
   }
 }

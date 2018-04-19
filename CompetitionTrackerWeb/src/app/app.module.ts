@@ -12,6 +12,8 @@ import { RoutesListComponent } from './routes-views/routes-list/routes-list.comp
 import { RouteComponent } from './routes-views/route/route.component';
 import { RankingEntriesListComponent } from './ranking-views/ranking-entries-list/ranking-entries-list.component';
 import { RankingEntryComponent } from './ranking-views/ranking-entry/ranking-entry.component';
+import { ModalInfoComponent } from './modal-info/modal-info.component';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,12 @@ import { RankingEntryComponent } from './ranking-views/ranking-entry/ranking-ent
     RoutesListComponent,
     RouteComponent,
     RankingEntriesListComponent,
-    RankingEntryComponent
+    RankingEntryComponent,
+    ModalInfoComponent
   ],
+  entryComponents: [ModalInfoComponent],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     HttpModule,
     RouterModule.forRoot([
@@ -61,7 +66,7 @@ import { RankingEntryComponent } from './ranking-views/ranking-entry/ranking-ent
    FormsModule,
    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
