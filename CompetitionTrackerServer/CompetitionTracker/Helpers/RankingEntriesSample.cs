@@ -25,7 +25,7 @@ namespace CompetitionTracker.Helpers
 
         public static void AddRankingEntry(Contestant contestant, Route route)
         {
-            RankingEntry rankingEntry = FindRankingEntry(contestant.ContestantId, false);
+            RankingEntry rankingEntry = FindRankingEntryToUpdate(contestant.ContestantId);
             if (rankingEntry != null)
             {
                 rankingEntry.PointsSum += route.Points;
@@ -38,23 +38,28 @@ namespace CompetitionTracker.Helpers
             }
         }
 
+        private static RankingEntry FindRankingEntryToUpdate(long contestantId)
+        {
+            return RankingEntries.FirstOrDefault(r => r.Contestant.ContestantId == contestantId);
+        }
+
         public static List<RankingEntry> GetRankingEntries()
         {
             return RankingEntries;
         }
 
-        public static void DeleteRankingEntry(long id)
+        public static void DeleteRankingEntry(long rankingEntryId)
         {
-            RankingEntry rankingEntry = FindRankingEntry(id, true);
+            RankingEntry rankingEntry = FindRankingEntryToDelete(rankingEntryId);
             RankingEntries.Remove(rankingEntry);
         }
 
-        private static RankingEntry FindRankingEntry(long contestantId, bool throwIfNotFound)
+        private static RankingEntry FindRankingEntryToDelete(long rankingEntryId)
         {
-            RankingEntry rankingEntry = RankingEntries.FirstOrDefault(r => r.Contestant.ContestantId == contestantId);
-            if (rankingEntry == null && throwIfNotFound)
+            RankingEntry rankingEntry = RankingEntries.FirstOrDefault(r => r.RankingEntryId == rankingEntryId);
+            if (rankingEntry == null)
             {
-                throw new RankingEntryNotFoundException($"Contestant with id {contestantId} in ranking not found!");
+                throw new RankingEntryNotFoundException($"Contestant with id {rankingEntryId} in ranking not found!");
             }
             return rankingEntry;
         }
