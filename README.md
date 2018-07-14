@@ -1,4 +1,4 @@
-###CompetitionTracker
+### CompetitionTracker
 
 **CompetitionTracker** to aplikacja do zapisywania wyników zawodów wspinaczkowych. Jej głównym zadaniem jest tworzenie rankingu opartego na wpisach dotyczących tras, jakie ukończył dany uczestnik w zawodach.
 Wpisem w tym przypadku jest nazwisko zawodnika oraz nazwa ukończonej drogi. Na podstawie typu trasy system dolicza punkty danemu uczestnikowi oraz ustala jego pozycję w rankingu.
@@ -13,4 +13,4 @@ Wpisem w tym przypadku jest nazwisko zawodnika oraz nazwa ukończonej drogi. Na 
 * Klient: Angular 5 (TypeScript),
 * Serwer: C# (Web API).
 
-Aktualnie aplikacja spełnia podstawowe funkcjonalności, zaś pozostałe są cały czas aktualizowane. 
+Aktualnie aplikacja spełnia podstawowe funkcjonalności, zaś pozostałe będą aktualizowane. 
